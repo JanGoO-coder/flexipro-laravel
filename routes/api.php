@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\FailedJobController;
 use App\Http\Controllers\API\JobController;
+use App\Http\Controllers\API\OrderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -63,4 +64,19 @@ Route::get('getJobs', [JobController::class, 'getJobs']);
 
 //Get By Id Job API
 Route::get('getJobById/{id}', [JobController::class, 'getJobById']);
+
+//Add Order API
+Route::post('addOrder', [OrderController::class, 'addOrder']);
+
+//Update Order API
+Route::post('updateOrder', [OrderController::class, 'updateOrder']);
+
+//Delete Order API
+Route::post('deleteOrder/{id}', [OrderController::class, 'deleteOrder']);
+
+//Get All Order API
+Route::get('getOrders', [OrderController::class, 'getOrders']);
+
+//Get By Id Order API
+Route::get('getOrderById/{id}', [OrderController::class, 'getOrderById']);
 
