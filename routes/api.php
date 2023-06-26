@@ -7,6 +7,7 @@ use App\Http\Controllers\API\FailedJobController;
 use App\Http\Controllers\API\JobController;
 use App\Http\Controllers\API\OrderController;
 use App\Http\Controllers\API\RatingController;
+use App\Http\Controllers\API\TransactionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -95,4 +96,19 @@ Route::get('getRatings', [RatingController::class, 'getRatings']);
 
 //Get By Id Rating API
 Route::get('getRatingById/{id}', [RatingController::class, 'getRatingById']);
+
+//Add Transaction API
+Route::post('addTransaction', [TransactionController::class, 'addTransaction']);
+
+//Update Transaction API
+Route::post('updateTransaction', [TransactionController::class, 'updateTransaction']);
+
+//Delete Transaction API
+Route::post('deleteTransaction/{id}', [TransactionController::class, 'deleteTransaction']);
+
+//Get All Transaction API
+Route::get('getTransaction', [TransactionController::class, 'getTransaction']);
+
+//Get By Id Transaction API
+Route::get('getTransactionById/{id}', [TransactionController::class, 'getTransactionById']);
 
