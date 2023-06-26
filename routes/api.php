@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\FailedJobController;
+use App\Http\Controllers\API\JobController;
 
 /*
 |--------------------------------------------------------------------------
@@ -36,15 +37,30 @@ Route::middleware('api')->prefix('auth')->group(function () {
 //Add Failed Job API
 Route::post('addFailedJob', [FailedJobController::class, 'addFailedJob']);
 
-//Add Failed Job API
+//Update Failed Job API
 Route::post('updateFailedJob', [FailedJobController::class, 'updateFailedJob']);
 
-//Add Failed Job API
+//Delete Failed Job API
 Route::post('deleteFailedJobs/{id}', [FailedJobController::class, 'deleteFailedJobs']);
 
-//Add Failed Job API
+//Get All Failed Job API
 Route::get('getFailedJobs', [FailedJobController::class, 'getFailedJobs']);
 
-//Add Failed Job API
+//Get By Id Failed Job API
 Route::get('getFailedJobsById/{id}', [FailedJobController::class, 'getFailedJobsById']);
+
+//Add Job API
+Route::post('addJob', [JobController::class, 'addJob']);
+
+//Update Job API
+Route::post('updateJob', [JobController::class, 'updateJob']);
+
+//Delete Job API
+Route::post('deleteJobs/{id}', [JobController::class, 'deleteJobs']);
+
+//Get All Job API
+Route::get('getJobs', [JobController::class, 'getJobs']);
+
+//Get By Id Job API
+Route::get('getJobById/{id}', [JobController::class, 'getJobById']);
 
