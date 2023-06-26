@@ -8,6 +8,7 @@ use App\Http\Controllers\API\JobController;
 use App\Http\Controllers\API\OrderController;
 use App\Http\Controllers\API\RatingController;
 use App\Http\Controllers\API\TransactionController;
+use App\Http\Controllers\API\WalletController;
 
 /*
 |--------------------------------------------------------------------------
@@ -112,3 +113,17 @@ Route::get('getTransaction', [TransactionController::class, 'getTransaction']);
 //Get By Id Transaction API
 Route::get('getTransactionById/{id}', [TransactionController::class, 'getTransactionById']);
 
+//Add Wallet API
+Route::post('addWallet', [WalletController::class, 'addWallet']);
+
+//Update Wallet API
+Route::post('updateWallet', [WalletController::class, 'updateWallet']);
+
+//Delete Wallet API
+Route::post('deleteWallet/{id}', [WalletController::class, 'deleteWallet']);
+
+//Get All Wallet API
+Route::get('getWallet', [WalletController::class, 'getWallet']);
+
+//Get By Id Wallet API
+Route::get('getWalletById/{id}', [WalletController::class, 'getWalletById']);
