@@ -6,6 +6,7 @@ use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\FailedJobController;
 use App\Http\Controllers\API\JobController;
 use App\Http\Controllers\API\OrderController;
+use App\Http\Controllers\API\RatingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -79,4 +80,19 @@ Route::get('getOrders', [OrderController::class, 'getOrders']);
 
 //Get By Id Order API
 Route::get('getOrderById/{id}', [OrderController::class, 'getOrderById']);
+
+//Add Rating API
+Route::post('addRating', [RatingController::class, 'addRating']);
+
+//Update Rating API
+Route::post('updateRating', [RatingController::class, 'updateRating']);
+
+//Delete Rating API
+Route::post('deleteRating/{id}', [RatingController::class, 'deleteRating']);
+
+//Get All Rating API
+Route::get('getRatings', [RatingController::class, 'getRatings']);
+
+//Get By Id Rating API
+Route::get('getRatingById/{id}', [RatingController::class, 'getRatingById']);
 
