@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\AuthController;
+use App\Http\Controllers\API\FailedJobController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,3 +32,19 @@ Route::middleware('api')->prefix('auth')->group(function () {
     Route::post('refresh', [AuthController::class, 'refresh']);
     Route::post('profile', [AuthController::class, 'profile']);
 });
+
+//Add Failed Job API
+Route::post('addFailedJob', [FailedJobController::class, 'addFailedJob']);
+
+//Add Failed Job API
+Route::post('updateFailedJob', [FailedJobController::class, 'updateFailedJob']);
+
+//Add Failed Job API
+Route::post('deleteFailedJobs/{id}', [FailedJobController::class, 'deleteFailedJobs']);
+
+//Add Failed Job API
+Route::get('getFailedJobs', [FailedJobController::class, 'getFailedJobs']);
+
+//Add Failed Job API
+Route::get('getFailedJobsById/{id}', [FailedJobController::class, 'getFailedJobsById']);
+
