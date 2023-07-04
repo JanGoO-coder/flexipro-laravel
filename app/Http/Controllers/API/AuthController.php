@@ -52,7 +52,7 @@ class AuthController extends Controller
             $success['user'] = $user;
             $success['token'] = $token;
 
-            return $this->sendResponse($success, 'user registered successfully', 201);
+            return response(['response'=>$success]);
         } catch (Exception $ex) {
             return $this->sendError([], $ex->getMessage(), 500);
         }
