@@ -28,7 +28,7 @@ class AuthController extends Controller
     public function register(Request $request)
     {
         try {
-            $registeration_input = $request->only('first_name', 'last_name', 'email', 'password', 'c_password');
+            $registeration_input = $request->only('first_name', 'last_name', 'email', 'password', 'c_password', 'user_role');
             $authentication_input = $request->only('email', 'password');
 
             $validator = Validator::make($registeration_input, [
