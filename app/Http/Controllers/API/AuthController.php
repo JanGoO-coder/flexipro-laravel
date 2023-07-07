@@ -37,7 +37,7 @@ class AuthController extends Controller
                 'email' => 'required|email|unique:users',
                 'password' => 'required|min:8',
                 'c_password' => 'required|same:password',
-                'user_type' => 'required|in:company,employee',
+                'user_role' => 'required|in:company,employee',
             ]);
 
             if($validator->fails()){
@@ -104,6 +104,44 @@ class AuthController extends Controller
         }
 
         return $this->sendResponse($user, "user data retrieved", 200);
+    }
+
+    /**
+     * Get the authenticated User.
+     */
+    public function editProfile(Request $request)
+    {
+        try {
+            $profile_fields = $request->only('first_name', 'last_name', 'about', 'gender', 'experience');
+
+            $user = JWTAuth::parseToken()->authenticate();
+            if (!$user) {
+                return $this->sendError([], "user not found", 403);
+            }
+
+            $validator = Validator::make($profile_fields, [
+                'first_name' => 'required',
+                'last_name' => 'required',
+                'about' => 'required',
+                'gender' => 'required|in:male,female',
+                'experience' => 'required'
+            ]);
+
+            if($validator->fails()){
+                return $this->sendError($validator->errors(), 'Validation Error', 422);
+            }
+
+            User::where('id', $user->id)->update($profile_fields);
+
+            $user = JWTAuth::parseToken()->authenticate();
+            if (!$user) {
+                return $this->sendError([], "user not found", 403);
+            }
+        } catch (JWTException $ex) {
+            return $this->sendError([], $ex->getMessage(), 500);
+        }
+
+        return $this->sendResponse($user, "profile updated successfully!", 200);
     }
 
     /**

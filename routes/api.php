@@ -34,6 +34,7 @@ Route::middleware('api')->prefix('auth')->group(function () {
     Route::post('register', [AuthController::class, 'register']);
     Route::post('login', [AuthController::class, 'login']);
     Route::post('profile', [AuthController::class, 'profile']);
+    Route::post('editProfile', [AuthController::class, 'editProfile']);
 });
 
 //Add Job API
