@@ -19,7 +19,7 @@ class AuthController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth:api', ['except' => ['login', 'register']]);
+        $this->middleware('jwt.verify', ['except' => ['login', 'register']]);
     }
 
     /**
@@ -28,14 +28,16 @@ class AuthController extends Controller
     public function register(Request $request)
     {
         try {
-            $registeration_input = $request->only('name', 'email', 'password', 'c_password');
+            $registeration_input = $request->only('first_name', 'last_name', 'email', 'password', 'c_password');
             $authentication_input = $request->only('email', 'password');
 
             $validator = Validator::make($registeration_input, [
-                'name' => 'required',
+                'first_name' => 'required',
+                'last_name' => 'required',
                 'email' => 'required|email|unique:users',
                 'password' => 'required|min:8',
                 'c_password' => 'required|same:password',
+                'user_type' => 'required|in:company,employee',
             ]);
 
             if($validator->fails()){
