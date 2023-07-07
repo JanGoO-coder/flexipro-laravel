@@ -33,25 +33,8 @@ Route::get('/', function() {
 Route::middleware('api')->prefix('auth')->group(function () {
     Route::post('register', [AuthController::class, 'register']);
     Route::post('login', [AuthController::class, 'login']);
-    Route::post('logout', [AuthController::class, 'logout']);
-    Route::post('refresh', [AuthController::class, 'refresh']);
     Route::post('profile', [AuthController::class, 'profile']);
 });
-
-//Add Failed Job API
-Route::post('addFailedJob', [FailedJobController::class, 'addFailedJob']);
-
-//Update Failed Job API
-Route::post('updateFailedJob', [FailedJobController::class, 'updateFailedJob']);
-
-//Delete Failed Job API
-Route::post('deleteFailedJobs/{id}', [FailedJobController::class, 'deleteFailedJobs']);
-
-//Get All Failed Job API
-Route::get('getFailedJobs', [FailedJobController::class, 'getFailedJobs']);
-
-//Get By Id Failed Job API
-Route::get('getFailedJobsById/{id}', [FailedJobController::class, 'getFailedJobsById']);
 
 //Add Job API
 Route::post('addJob', [JobController::class, 'addJob']);
