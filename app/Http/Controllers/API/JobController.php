@@ -98,9 +98,30 @@ class JobController extends Controller
     }
 
     /**
-     * get all jobs for a specific company
+     * get all jobs
      */
     public function getJobs(Request $request) {
+        try {
+            $jobs = Job::get();
+
+            $success["jobs"] = $jobs;
+
+            if (isset($jobs) && count($jobs) > 0) {
+                $success["message"] = "Total " . count($jobs) . " Jobs retrieved Successfully!";
+            } else {
+                $success["message"] = "Your company doesn't posted any jobs yet!";
+            }
+
+            return response(['response'=>$success]);
+        } catch (Exception $ex) {
+            return $this->sendError([], $ex->getMessage(), 500);
+        }
+    }
+
+    /**
+     * get all jobs for a specific company
+     */
+    public function getCompanyJobs(Request $request) {
         try {
             $company = JWTAuth::user();
             $company_id = $company->id;
