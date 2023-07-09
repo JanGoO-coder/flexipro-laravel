@@ -19,7 +19,7 @@ class SkillController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('jwt.verify', ['except' => ['login', 'register']]);
+        $this->middleware('jwt.verify', ['except' => []]);
     }
 
     /**

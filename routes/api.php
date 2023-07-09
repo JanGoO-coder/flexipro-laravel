@@ -46,20 +46,14 @@ Route::middleware('api')->prefix('skills')->group(function () {
     Route::post('/remove', [SkillController::class, 'removeUserSkill']);
 });
 
-//Add Job API
-Route::post('addJob', [JobController::class, 'addJob']);
-
-//Update Job API
-Route::post('updateJob', [JobController::class, 'updateJob']);
-
-//Delete Job API
-Route::post('deleteJobs/{id}', [JobController::class, 'deleteJobs']);
-
-//Get All Job API
-Route::get('getJobs', [JobController::class, 'getJobs']);
-
-//Get By Id Job API
-Route::get('getJobById/{id}', [JobController::class, 'getJobById']);
+// Company Job Posting API Routes
+Route::middleware('api')->prefix('jobs')->group(function () {
+    Route::get('/', [JobController::class, 'getJobs']);
+    Route::get('/get/{id}', [JobController::class, 'getJobById']);
+    Route::post('add', [JobController::class, 'addJob']);
+    Route::post('update', [JobController::class, 'updateJob']);
+    Route::post('delete/{id}', [JobController::class, 'deleteJobs']);
+});
 
 //Add Order API
 Route::post('addOrder', [OrderController::class, 'addOrder']);
