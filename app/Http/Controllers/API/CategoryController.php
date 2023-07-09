@@ -111,12 +111,10 @@ class CategoryController extends Controller
     /**
      * delete a specific category
      */
-    function deleteCategory($id) {
+    function deleteCategory(Request $request) {
         try {
-            $response = Category::where('id',$id)->delete();
+            $response = Category::where('id',$request->id)->delete();
     
-            $success["success"] = $response;
-
             if ($response) {
                 $success["message"] = "Category deleted Successfully!";
             } else {
@@ -132,9 +130,9 @@ class CategoryController extends Controller
     /**
      * get a specifc category
      */
-    public function getCategoryById($id) {
+    public function getCategoryById(Request $request) {
         try {
-            $response = Category::where('id',$id)->get();
+            $response = Category::where('id',$request->id)->get();
 
             if (isset($response) && count($response) > 0) {
                 $success["message"] = "Category data retrieved Successfully!";
