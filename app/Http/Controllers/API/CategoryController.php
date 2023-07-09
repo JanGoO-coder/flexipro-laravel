@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Models\Job;
+use App\Models\Category;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
-class JobController extends Controller
+class CategoryController extends Controller
 {
     /**
      * Create a new AuthController instance.
@@ -21,34 +21,27 @@ class JobController extends Controller
     }
 
     /**
-     * Add a new job for a specific company
+     * Add a new category
      */
-    function addJob(Request $request)   {
+    function addCategory(Request $request)   {
         try {
-            $company = JWTAuth::user();
-            $company_id = $company->id;
-
-            $attributes = $request->only('job_title', 'job_description', 'budget', 'duration_days', 'category_id');
-            $attributes["company_id"] = $company_id;
+            $attributes = $request->only('name', 'description');
 
             $validator = Validator::make($attributes, [
-                'job_title' => 'required',
-                'job_description' => 'required',
-                'budget' => 'required',
-                'duration_days' => 'required',
-                'category_id' => 'required',
+                'name' => 'required',
+                'description' => 'required',
             ]);
 
             if($validator->fails()){
                 return $this->sendError($validator->errors(), 'Validation Error', 422);
             }
 
-            $response = Job::create($attributes);
+            $response = Category::create($attributes);
     
             $success["success"] = $response;
 
             if ($response) {
-                $success["message"] = "New Job Added Successfully!";
+                $success["message"] = "New Category Added Successfully!";
             } else {
                 $success["message"] = "Something went wrong!";
             }
@@ -60,21 +53,18 @@ class JobController extends Controller
     }
 
     /**
-     * update a specific job
+     * update a specific category
      */
-    function updateJob(Request $request) {
+    function updateCategory(Request $request) {
         try {
-            $job_id = $request->id;
+            $category_id = $request->id;
 
-            $attributes = $request->only('id', 'job_title', 'job_description', 'budget', 'duration_days', 'category_id');
+            $attributes = $request->only('id', 'name', 'description');
 
             $validator = Validator::make($attributes, [
                 'id' => 'required',
-                'job_title' => 'required',
-                'job_description' => 'required',
-                'budget' => 'required',
-                'duration_days' => 'required',
-                'category_id' => 'required',
+                'name' => 'required',
+                'description' => 'required',
             ]);
 
             if($validator->fails()){
@@ -83,10 +73,10 @@ class JobController extends Controller
 
             unset($attributes["id"]);
 
-            $response = Job::where("id", $job_id)->update($attributes);
+            $response = Category::where("id", $category_id)->update($attributes);
     
             if ($response) {
-                $success["message"] = "Job Updated Successfully!";
+                $success["message"] = "Category Updated Successfully!";
             } else {
                 $success["message"] = "Something went wrong!";
             }
@@ -98,21 +88,18 @@ class JobController extends Controller
     }
 
     /**
-     * get all jobs for a specific company
+     * get all categories
      */
-    public function getJobs(Request $request) {
+    public function getCategories(Request $request) {
         try {
-            $company = JWTAuth::user();
-            $company_id = $company->id;
+            $categories = Category::get();
 
-            $jobs = Job::where("company_id", $company_id)->get();
+            $success["categories"] = $categories;
 
-            $success["jobs"] = $jobs;
-
-            if (isset($jobs) && count($jobs) > 0) {
-                $success["message"] = "Total " . count($jobs) . " Jobs retrieved Successfully!";
+            if (isset($categories) && count($categories) > 0) {
+                $success["message"] = "Total " . count($categories) . " categories retrieved Successfully!";
             } else {
-                $success["message"] = "Your company doesn't posted any jobs yet!";
+                $success["message"] = "No categories found!";
             }
 
             return response(['response'=>$success]);
@@ -122,16 +109,16 @@ class JobController extends Controller
     }
 
     /**
-     * delete a specific job
+     * delete a specific category
      */
-    function deleteJob($id) {
+    function deleteCategory($id) {
         try {
-            $response = Job::where('id',$id)->delete();
+            $response = Category::where('id',$id)->delete();
     
             $success["success"] = $response;
 
             if ($response) {
-                $success["message"] = "Job deleted Successfully!";
+                $success["message"] = "Category deleted Successfully!";
             } else {
                 $success["message"] = "Something went wrong!";
             }
@@ -143,16 +130,16 @@ class JobController extends Controller
     }
 
     /**
-     * get a specifc job
+     * get a specifc category
      */
-    public function getJobById($id) {
+    public function getCategoryById($id) {
         try {
-            $response = Job::where('id',$id)->get();
+            $response = Category::where('id',$id)->get();
 
             if (isset($response) && count($response) > 0) {
-                $success["message"] = "Job data retrieved Successfully!";
+                $success["message"] = "Category data retrieved Successfully!";
             } else {
-                $success["message"] = "Job Not Found!";
+                $success["message"] = "Category Not Found!";
             }
 
             return response(['response'=>$success]);

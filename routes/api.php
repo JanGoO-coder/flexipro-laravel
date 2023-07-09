@@ -10,6 +10,7 @@ use App\Http\Controllers\API\RatingController;
 use App\Http\Controllers\API\TransactionController;
 use App\Http\Controllers\API\WalletController;
 use App\Http\Controllers\API\SkillController;
+use App\Http\Controllers\API\CategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -52,7 +53,16 @@ Route::middleware('api')->prefix('jobs')->group(function () {
     Route::get('/get/{id}', [JobController::class, 'getJobById']);
     Route::post('add', [JobController::class, 'addJob']);
     Route::post('update', [JobController::class, 'updateJob']);
-    Route::post('delete/{id}', [JobController::class, 'deleteJobs']);
+    Route::post('delete/{id}', [JobController::class, 'deleteJob']);
+});
+
+// Category API Routes
+Route::middleware('api')->prefix('categories')->group(function () {
+    Route::get('/', [CategoryController::class, 'getCategories']);
+    Route::get('/get/{id}', [CategoryController::class, 'getCategoryById']);
+    Route::post('add', [CategoryController::class, 'addCategory']);
+    Route::post('update', [CategoryController::class, 'updateCategory']);
+    Route::post('delete/{id}', [CategoryController::class, 'deleteCategory']);
 });
 
 //Add Order API
