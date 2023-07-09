@@ -9,6 +9,7 @@ use App\Http\Controllers\API\OrderController;
 use App\Http\Controllers\API\RatingController;
 use App\Http\Controllers\API\TransactionController;
 use App\Http\Controllers\API\WalletController;
+use App\Http\Controllers\API\SkillController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,11 +31,19 @@ Route::get('/', function() {
     return response()->json($data, 200);
 });
 
+// Authentication API Routes
 Route::middleware('api')->prefix('auth')->group(function () {
     Route::post('register', [AuthController::class, 'register']);
     Route::post('login', [AuthController::class, 'login']);
     Route::post('profile', [AuthController::class, 'profile']);
     Route::post('editProfile', [AuthController::class, 'editProfile']);
+});
+
+// User Skills API Routes
+Route::middleware('api')->prefix('skills')->group(function () {
+    Route::get('/', [SkillController::class, 'getUserSkills']);
+    Route::post('/add', [SkillController::class, 'addUserSkill']);
+    Route::post('/remove', [SkillController::class, 'removeUserSkill']);
 });
 
 //Add Job API
