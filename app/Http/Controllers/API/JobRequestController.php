@@ -6,6 +6,7 @@ use App\Models\JobRequest;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Facades\JWTAuth;
+use Illuminate\Support\Facades\Validator;
 
 
 class JobRequestController extends Controller
@@ -23,7 +24,7 @@ class JobRequestController extends Controller
     /**
      * Get all job Requests sent by a user against a particular user
      */
-    public function getUserJobRequest(Request $request)
+    public function getUserJobRequests(Request $request)
     {
         try {
             $user = JWTAuth::user();
@@ -79,10 +80,9 @@ class JobRequestController extends Controller
             $user = JWTAuth::user();
             $user_id = $user->id;
 
-            $attributes = $request->only('description', 'job_id', 'company_id');
+            $attributes = $request->only( 'job_id', 'company_id');
 
             $validator = Validator::make($attributes, [
-                'description' => 'required',
                 'job_id' => 'required',
                 'company_id' => 'required',
             ]);
@@ -114,18 +114,15 @@ class JobRequestController extends Controller
     public function updateJopRequestStatus(Request $request)
     {
         try {
-            $attributes = $request->only('id', 'status');
+            $attributes = $request->only('status');
             
             $validator = Validator::make($attributes, [
-                'id' => 'required',
                 'status' => 'required',
             ]);
 
             if($validator->fails()){
                 return $this->sendError($validator->errors(), 'Validation Error', 422);
             }
-
-            uset($attributes["id"]);
 
             $response = JobRequest::where('id', $request->id)->update($attributes);
 
@@ -147,16 +144,6 @@ class JobRequestController extends Controller
     public function removeJopRequest(Request $request)
     {
         try {
-            $attributes = $request->only('id');
-            
-            $validator = Validator::make($attributes, [
-                'id' => 'required',
-            ]);
-
-            if($validator->fails()){
-                return $this->sendError($validator->errors(), 'Validation Error', 422);
-            }
-
             $response = JobRequest::where('id', $request->id)->delete();
 
             if ($response) {

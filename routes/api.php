@@ -70,8 +70,8 @@ Route::middleware('api')->prefix('categories')->group(function () {
 
 // Application API Routes
 Route::middleware('api')->prefix('applications')->group(function () {
-    Route::get('/get/user', [JobApplicationController::class, 'getUserJobApplications']);
-    Route::get('/get/company', [JobApplicationController::class, 'getCompanyJobApplications']);
+    Route::get('/get/user', [JobApplicationController::class, 'getUserJobRequest']);
+    Route::get('/get/company', [JobApplicationController::class, 'getCompanyJobRequests']);
     Route::post('sendRequest', [JobApplicationController::class, 'sendJobApplication']);
     Route::post('update/{id}', [JobApplicationController::class, 'updateJopApplicationStatus']);
     Route::post('delete/{id}', [JobApplicationController::class, 'removeJopApplication']);
@@ -79,10 +79,10 @@ Route::middleware('api')->prefix('applications')->group(function () {
 
 // Request API Routes
 Route::middleware('api')->prefix('requests')->group(function () {
-    Route::get('/get/user/{id}', [JobRequestController::class, 'getUserJobRequests']);
-    Route::get('/get/company/{id}', [JobRequestController::class, 'getCompanyJobRequests']);
+    Route::get('/get/user', [JobRequestController::class, 'getUserJobRequests']);
+    Route::get('/get/company', [JobRequestController::class, 'getCompanyJobRequests']);
     Route::post('sendRequest', [JobRequestController::class, 'sendJobRequest']);
-    Route::post('update', [JobRequestController::class, 'updateJopRequestStatus']);
+    Route::post('update/{id}', [JobRequestController::class, 'updateJopRequestStatus']);
     Route::post('delete/{id}', [JobRequestController::class, 'removeJopRequest']);
 });
 
