@@ -11,6 +11,7 @@ use App\Http\Controllers\API\TransactionController;
 use App\Http\Controllers\API\WalletController;
 use App\Http\Controllers\API\SkillController;
 use App\Http\Controllers\API\CategoryController;
+use App\Http\Controllers\API\JobApplicationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -63,6 +64,15 @@ Route::middleware('api')->prefix('categories')->group(function () {
     Route::post('add', [CategoryController::class, 'addCategory']);
     Route::post('update', [CategoryController::class, 'updateCategory']);
     Route::post('delete/{id}', [CategoryController::class, 'deleteCategory']);
+});
+
+// Category API Routes
+Route::middleware('api')->prefix('applications')->group(function () {
+    Route::get('/get/user/{id}', [JobApplicationController::class, 'getUserJobApplications']);
+    Route::get('/get/company/{id}', [JobApplicationController::class, 'getCompanyJobApplications']);
+    Route::post('sendRequest', [JobApplicationController::class, 'sendJobApplication']);
+    Route::post('update', [JobApplicationController::class, 'updateJopApplicationStatus']);
+    Route::post('delete/{id}', [JobApplicationController::class, 'removeJopApplication']);
 });
 
 //Add Order API
