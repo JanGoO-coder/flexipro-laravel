@@ -145,6 +145,28 @@ class AuthController extends Controller
     }
 
     /**
+     * refresh token
+     *
+     * @return \Illuminate\Http\JsonResponse
+     */
+    protected function refresh(Request $request)
+    {
+        try{
+            $token = JWTAuth::getToken();
+            if(!$token){
+                return $this->sendError([], "token not found", 403);
+            }
+            $token = JWTAuth::refresh($token);
+            $success["token"] = $token;
+            $success["message"] = "token refreshed";
+
+            return response(['response'=>$success]);
+        } catch (JWTException $ex) {
+            return $this->sendError([], $ex->getMessage(), 500);
+        }
+    }
+
+    /**
      * Get the token array structure.
      *
      * @param  string $token

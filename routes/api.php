@@ -40,6 +40,7 @@ Route::middleware('api')->prefix('auth')->group(function () {
     Route::post('login', [AuthController::class, 'login']);
     Route::post('profile', [AuthController::class, 'profile']);
     Route::post('editProfile', [AuthController::class, 'editProfile']);
+    Route::get('refresh', [AuthController::class, 'refresh']);
 });
 
 // User Skills API Routes
