@@ -87,6 +87,9 @@ Route::middleware('api')->prefix('requests')->group(function () {
     Route::post('delete/{id}', [JobRequestController::class, 'removeJopRequest']);
 });
 
+//Get All Users API
+Route::get('getAllUsers', [AuthController::class, 'getAllUsers']);
+
 //Add Order API
 Route::post('addOrder', [OrderController::class, 'addOrder']);
 
