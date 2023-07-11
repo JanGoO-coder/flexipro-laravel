@@ -77,21 +77,21 @@ class JobRequestController extends Controller
     public function sendJobRequest(Request $request)
     {
         try {
-            $user = JWTAuth::user();
-            $user_id = $user->id;
+            $company = JWTAuth::user();
+            $company_id = $company->id;
 
-            $attributes = $request->only( 'job_id', 'company_id');
+            $attributes = $request->only('job_id', 'user_id');
 
             $validator = Validator::make($attributes, [
                 'job_id' => 'required',
-                'company_id' => 'required',
+                'user_id' => 'required',
             ]);
 
             if($validator->fails()){
                 return $this->sendError($validator->errors(), 'Validation Error', 422);
             }
 
-            $attributes["user_id"] = $user_id;
+            $attributes["company_id"] = $company_id;
             $attributes["status"] = "pending";
 
             $response = JobRequest::create($attributes);
