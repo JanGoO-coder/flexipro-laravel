@@ -184,7 +184,9 @@ class AuthController extends Controller
 
     public function getAllUsers()
     {
-        $user = User::get();
+        $check = 'employee';
+        $user = User::where('user_role',$check)->get();
+
         return response()->json(['Users' => $user]);
     }
 }
