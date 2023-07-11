@@ -41,6 +41,7 @@ Route::middleware('api')->prefix('auth')->group(function () {
     Route::post('profile', [AuthController::class, 'profile']);
     Route::post('editProfile', [AuthController::class, 'editProfile']);
     Route::get('refresh', [AuthController::class, 'refresh']);
+    Route::get('getAllUsers', [AuthController::class, 'getAllUsers']);
 });
 
 // User Skills API Routes
@@ -86,9 +87,6 @@ Route::middleware('api')->prefix('requests')->group(function () {
     Route::post('update/{id}', [JobRequestController::class, 'updateJopRequestStatus']);
     Route::post('delete/{id}', [JobRequestController::class, 'removeJopRequest']);
 });
-
-//Get All Users API
-Route::get('getAllUsers', [AuthController::class, 'getAllUsers']);
 
 //Add Order API
 Route::post('addOrder', [OrderController::class, 'addOrder']);
